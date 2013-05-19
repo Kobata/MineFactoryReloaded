@@ -1,5 +1,9 @@
 package powercrystals.minefactoryreloaded.gui.container;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
@@ -15,7 +19,11 @@ import powercrystals.minefactoryreloaded.gui.slot.SlotViewOnly;
 import powercrystals.minefactoryreloaded.tile.machine.TileEntityLiquiCrafter;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import invtweaks.api.container.ChestContainer;
+import invtweaks.api.container.ContainerSectionCallback;
+import invtweaks.api.container.ContainerSection;
 
+@ChestContainer
 public class ContainerLiquiCrafter extends ContainerFactoryInventory
 {
 	private TileEntityLiquiCrafter _crafter;
@@ -140,5 +148,17 @@ public class ContainerLiquiCrafter extends ContainerFactoryInventory
 	protected int getPlayerInventoryVerticalOffset()
 	{
 		return 133;
+	}
+	
+	@ContainerSectionCallback
+	public Map<ContainerSection, List<Slot>> getContainerSections() {
+		Map<ContainerSection, List<Slot>> sections = new HashMap<ContainerSection, List<Slot>>();
+		
+		// Slots 0-8 are crafting fake slots (hold a single-level 'copy' of an item that is destroyed upon removal)
+		// Slot 9 is view-only
+		sections.put(ContainerSection.CRAFTING_OUT, inventorySlots.subList(10, 11)); // Slot 10
+		sections.put(ContainerSection.CHEST, inventorySlots.subList(11, 29)); // Slots 11-28
+		
+		return sections;
 	}
 }

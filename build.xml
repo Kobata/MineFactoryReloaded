@@ -101,6 +101,12 @@
 		<echo message="Exctracting Thaumcraft API... " />
 		<unzip src="${download.dir}/ThaumcraftAPI.zip" dest="${download.dir}/thaumcraft/" />
 		<move file="${download.dir}/thaumcraft/thaumcraft" todir="${mcpsrc.dir}" />
+		
+		<echo message="Copying Inventory Tweaks API... " />
+		<mkdir dir="${mcpsrc.dir}/invtweaks" />
+		<copy todir="${mcpsrc.dir}/invtweaks" overwrite="true">
+			<fileset dir="${src.dir}/invtweaks"/>
+		</copy>
 	</target>
 
 
